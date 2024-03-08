@@ -1,22 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 from ultralytics import YOLO
 import os
-import numpy as np
+from features.image_classifier import classify_image
 
 app = Flask(__name__)
 
-model_path = '/Users/fadhilahmad/Documents/apl deteksi sayur/runs/classify/train/weights/best.pt'
-model = YOLO(model_path)
-
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-def classify_image(image_path):
-    results = model(image_path)
-    names_dict = results[0].names
-    probs = results[0].probs.data.tolist()
-    predicted_class = names_dict[np.argmax(probs)]
-    return predicted_class
 
 @app.route('/')
 def index():
@@ -37,7 +27,7 @@ def upload_files():
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
 
-        predicted_class = classify_image(file_path)
+        predicted_class = classify_image(file_path)  # Call classify_image function
         results.append({'class': predicted_class})
 
     return jsonify({'results': results})
