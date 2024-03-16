@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import numpy as np
 
-model_path = '/Users/fadhilahmad/Documents/apl deteksi sayur/runs/classify/train/weights/best.pt'
+model_path = '/Users/fadhilahmad/Documents/apl deteksi sayur/model/runs/classify/train/weights/best.pt'
 model = YOLO(model_path)
 
 def classify_image(image_path):
