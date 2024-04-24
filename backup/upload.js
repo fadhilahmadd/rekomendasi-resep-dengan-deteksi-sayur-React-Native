@@ -98,7 +98,7 @@ export default function UploadScreen() {
         });
 
         try {
-            const response = await fetch('http://192.168.1.13:5000/upload', {
+            const response = await fetch('http://192.168.0.160:5000/upload', {
                 method: 'POST',
                 body: data,
                 headers: {
